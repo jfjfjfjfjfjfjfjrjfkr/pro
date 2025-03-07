@@ -175,10 +175,15 @@
             }
 
             // Fetch weather information
-            function updateWeather() {
-                // Replace with a real weather API if available
-                const weatherInfo = 'Sunny, 25°C';
-                weatherDiv.textContent = `Current Weather: ${weatherInfo}`;
+            async function updateWeather() {
+                try {
+                    const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=YourCity&appid=YourAPIKey&units=metric'); // Replace 'YourCity' and 'YourAPIKey'
+                    const data = await response.json();
+                    const weatherInfo = `${data.weather[0].description}, ${data.main.temp}°C`;
+                    weatherDiv.textContent = `Current Weather: ${weatherInfo}`;
+                } catch (error) {
+                    weatherDiv.textContent = 'Unable to fetch weather data';
+                }
             }
 
             // Update date, time, and weather every second
