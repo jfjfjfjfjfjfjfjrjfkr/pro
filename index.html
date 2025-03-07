@@ -86,7 +86,7 @@
         }
 
         /* Date, Time, and Weather styles */
-        #date-time, #weather, #port-date {
+        #date-time, #weather, #port-date, #clock {
             text-align: center;
             margin-top: 1rem;
             font-size: 1.2rem;
@@ -140,6 +140,7 @@
             <button id="cta-button">Play Now</button>
         </section>
         <div id="date-time"></div>
+        <div id="clock"></div>
         <div id="weather"></div>
         <div id="port-date"></div>
         <div id="cruise-ships">
@@ -161,6 +162,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const ctaButton = document.getElementById('cta-button');
             const dateTimeDiv = document.getElementById('date-time');
+            const clockDiv = document.getElementById('clock');
             const weatherDiv = document.getElementById('weather');
             const portDateDiv = document.getElementById('port-date');
 
@@ -175,6 +177,13 @@
                 const now = new Date();
                 const formattedDateTime = now.toLocaleString();
                 dateTimeDiv.textContent = `Current Date and Time: ${formattedDateTime}`;
+            }
+
+            // Display real-time clock
+            function updateClock() {
+                const now = new Date();
+                const formattedTime = now.toLocaleTimeString();
+                clockDiv.textContent = `Current Time: ${formattedTime}`;
             }
 
             // Display port of call date
@@ -200,9 +209,11 @@
             // Load initial data and set intervals
             function load() {
                 updateDateTime();
+                updateClock();
                 updateWeather();
                 updatePortDate();
                 setInterval(updateDateTime, 1000);
+                setInterval(updateClock, 1000);
                 setInterval(updateWeather, 60000); // Update weather every minute
                 setInterval(updatePortDate, 86400000); // Update port of call date every day
             }
