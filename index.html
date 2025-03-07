@@ -75,6 +75,14 @@
             text-align: center;
             padding: 1rem 0;
         }
+
+        /* Date and Time styles */
+        #date-time {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: #00796b;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +114,7 @@
             <h2>Get Started</h2>
             <button id="cta-button">Play Now</button>
         </section>
+        <div id="date-time"></div>
     </main>
     <footer>
         <p>&copy; 2025 Tableboard Studios. All rights reserved.</p>
@@ -113,11 +122,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctaButton = document.getElementById('cta-button');
+            const dateTimeDiv = document.getElementById('date-time');
 
+            // Redirect to the game on button click
             ctaButton.addEventListener('click', function() {
                 alert('Redirecting to the Roblox Cruise Ship Simulator...');
                 window.location.href = 'https://www.roblox.com/games/12345678/Cruise-Ship-Simulator'; // Replace with the actual game URL
             });
+
+            // Display current date and time
+            function updateDateTime() {
+                const now = new Date();
+                const formattedDateTime = now.toLocaleString();
+                dateTimeDiv.textContent = `Current Date and Time: ${formattedDateTime}`;
+            }
+
+            // Update date and time every second
+            setInterval(updateDateTime, 1000);
+            updateDateTime();
         });
     </script>
 </body>
