@@ -86,7 +86,7 @@
         }
 
         /* Date, Time, and Weather styles */
-        #date-time, #weather {
+        #date-time, #weather, #port-date {
             text-align: center;
             margin-top: 1rem;
             font-size: 1.2rem;
@@ -141,6 +141,7 @@
         </section>
         <div id="date-time"></div>
         <div id="weather"></div>
+        <div id="port-date"></div>
         <div id="cruise-ships">
             <h2>Available Cruise Ships</h2>
             <ul>
@@ -160,6 +161,7 @@
             const ctaButton = document.getElementById('cta-button');
             const dateTimeDiv = document.getElementById('date-time');
             const weatherDiv = document.getElementById('weather');
+            const portDateDiv = document.getElementById('port-date');
 
             // Redirect to the game on button click
             ctaButton.addEventListener('click', function() {
@@ -174,6 +176,14 @@
                 dateTimeDiv.textContent = `Current Date and Time: ${formattedDateTime}`;
             }
 
+            // Display port of call date
+            function updatePortDate() {
+                const now = new Date();
+                const portDate = new Date(now.setDate(now.getDate() + 1)); // Example: Next day's date
+                const formattedPortDate = portDate.toLocaleDateString();
+                portDateDiv.textContent = `Port of Call Date: ${formattedPortDate}`;
+            }
+
             // Fetch weather information
             async function updateWeather() {
                 try {
@@ -186,10 +196,17 @@
                 }
             }
 
-            // Update date, time, and weather every second
-            setInterval(updateDateTime, 1000);
-            updateDateTime();
-            updateWeather();
+            // Load initial data and set intervals
+            function load() {
+                updateDateTime();
+                updateWeather();
+                updatePortDate();
+                setInterval(updateDateTime, 1000);
+                setInterval(updateWeather, 60000); // Update weather every minute
+                setInterval(updatePortDate, 86400000); // Update port of call date every day
+            }
+
+            load(); // Call load function on DOMContentLoaded
         });
     </script>
 </body>
