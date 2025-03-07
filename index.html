@@ -76,12 +76,27 @@
             padding: 1rem 0;
         }
 
-        /* Date and Time styles */
-        #date-time {
+        /* Date, Time, and Weather styles */
+        #date-time, #weather {
             text-align: center;
             margin-top: 1rem;
             font-size: 1.2rem;
             color: #00796b;
+        }
+
+        /* Cruise Ships list styles */
+        #cruise-ships {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        #cruise-ships ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #cruise-ships ul li {
+            margin: 0.5rem 0;
         }
     </style>
 </head>
@@ -115,6 +130,17 @@
             <button id="cta-button">Play Now</button>
         </section>
         <div id="date-time"></div>
+        <div id="weather"></div>
+        <div id="cruise-ships">
+            <h2>Available Cruise Ships</h2>
+            <ul>
+                <li>SS Voyager</li>
+                <li>Ocean Explorer</li>
+                <li>Sea Adventurer</li>
+                <li>Wave Rider</li>
+                <li>Sunset Cruiser</li>
+            </ul>
+        </div>
     </main>
     <footer>
         <p>&copy; 2025 Tableboard Studios. All rights reserved.</p>
@@ -123,6 +149,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const ctaButton = document.getElementById('cta-button');
             const dateTimeDiv = document.getElementById('date-time');
+            const weatherDiv = document.getElementById('weather');
 
             // Redirect to the game on button click
             ctaButton.addEventListener('click', function() {
@@ -137,9 +164,17 @@
                 dateTimeDiv.textContent = `Current Date and Time: ${formattedDateTime}`;
             }
 
-            // Update date and time every second
+            // Fetch weather information
+            function updateWeather() {
+                // Replace with a real weather API if available
+                const weatherInfo = 'Sunny, 25°C';
+                weatherDiv.textContent = `Current Weather: ${weatherInfo}`;
+            }
+
+            // Update date, time, and weather every second
             setInterval(updateDateTime, 1000);
             updateDateTime();
+            updateWeather();
         });
     </script>
 </body>
